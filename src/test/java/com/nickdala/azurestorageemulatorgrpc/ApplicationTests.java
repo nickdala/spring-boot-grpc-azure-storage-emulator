@@ -1,4 +1,4 @@
-package com.nickdala.azure_storage_emulator_grpc;
+package com.nickdala.azurestorageemulatorgrpc;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
