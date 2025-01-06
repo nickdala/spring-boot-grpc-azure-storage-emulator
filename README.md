@@ -11,7 +11,7 @@ The application has the following components:
 
 ### Azure Storage Emulator
 
-The Azure Storage Emulator is a local emulator that provides a local development environment for Azure Storage. The Azure Storage service is exposed by the docker compose file `compose.yaml`.
+The Azure Storage Emulator is a local emulator that provides a local development environment for Azure Storage. The Azure Storage service is defined in the docker compose file `compose.yaml`.
 
 ```yaml
 services:
