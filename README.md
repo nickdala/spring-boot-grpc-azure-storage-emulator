@@ -85,6 +85,100 @@ service StorageService {
 }
 ```
 
+### Interacting with Azure Blob Storage
+
+Spring provides a [Spring Resource](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#resources) abstraction to access low level resources. [Spring Cloud Azure](https://learn.microsoft.com/azure/developer/java/spring-framework/developer-guide-overview) implements these interfaces for Azure Storage services.
+
+The `AzureStorageService` class provides methods to upload, download, and list files in the Azure Storage Emulator. The `ResourceLoader` is injected into the `AzureStorageService` class and is used to read and write to blob storage. The pattern `azure-blob://[your-container-name]/[your-blob-name]` is used by the `ResourceLoader` to interact with Azure Blob Storage. Here is how the `AzureStorageService` class is defined:
+
+Fields:
+
+```java
+private static final String BLOB_RESOURCE_PATTERN = "azure-blob://%s/%s";
+
+private final ResourceLoader resourceLoader;
+private final String containerName; 
+```
+
+Constructor:
+
+```java
+public AzureStorageEmulatorGrpcService(ResourceLoader resourceLoader,
+                                       @Value("${spring.cloud.azure.storage.blob.container-name}") String containerName,
+                                       AzureStorageBlobProtocolResolver azureStorageBlobProtocolResolver) {
+  this.resourceLoader = resourceLoader;
+  this.containerName = containerName;
+  this.azureStorageBlobProtocolResolver = azureStorageBlobProtocolResolver;
+}
+```
+
+The container name is injected from the `application.properties` file.
+
+#### Upload File
+
+Below demonstrates how you can use the `resourceLoader` to write to Azure Blob Storage.
+
+```java
+public void upload(UploadRequest request, StreamObserver<UploadResponse> responseObserver) {
+  Resource resource = resourceLoader.getResource(String.format(BLOB_RESOURCE_PATTERN, this.containerName, request.getFileName()));
+
+  try (OutputStream os = ((WritableResource) resource).getOutputStream()) {
+    os.write(request.getFileContent().getBytes(Charset.defaultCharset()));
+
+    UploadResponse response = UploadResponse.newBuilder()
+      .setMessage("File uploaded successfully")
+      .build();
+    responseObserver.onNext(response);
+    responseObserver.onCompleted();
+  } catch (IOException e) {
+    responseObserver.onError(e);
+  }
+}
+```
+
+#### Download File
+
+Similarly, you can use the `resourceLoader` to read from Azure Blob Storage. The `getInputStream` method is used to read the file content. In this example, the file content is read as a string.
+
+```java
+public void download(DownloadRequest request, StreamObserver<DownloadResponse> responseObserver) {
+  Resource resource = resourceLoader.getResource(String.format(BLOB_RESOURCE_PATTERN, this.containerName, request.getFileName()));
+  
+  try (InputStream is = resource.getInputStream()) {
+    String fileContent = StreamUtils.copyToString(is, Charset.defaultCharset());
+    DownloadResponse response = DownloadResponse.newBuilder()
+      .setFileContent(fileContent)
+      .build();
+    responseObserver.onNext(response);
+    responseObserver.onCompleted();
+  } catch (IOException e) {
+    responseObserver.onError(e);
+  }
+}
+```
+
+#### List Files
+
+`AzureStorageBlobProtocolResolver` is used to search for blob resources. For more information about pattern matching, check out the link [here](https://learn.microsoft.com/azure/developer/java/spring-framework/resource-handling#get-resources-by-searching-pattern).
+
+```java
+public void listFiles(ListFilesRequest request, StreamObserver<ListFilesResponse> responseObserver) {
+
+  try {
+    Resource[] resources = azureStorageBlobProtocolResolver.getResources(String.format(BLOB_RESOURCE_PATTERN, this.containerName, "*"));
+    
+    List<String> fileNames = Stream.of(resources).map(Resource::getFilename).toList();
+    ListFilesResponse response = ListFilesResponse.newBuilder()
+      .addAllFileNames(fileNames)
+      .build();
+    responseObserver.onNext(response);
+    responseObserver.onCompleted();
+  } catch (IOException e) {
+    responseObserver.onError(e);
+  }
+}
+```
+
 ## Build and Run the Application
 
 ### Prerequisites
