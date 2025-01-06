@@ -39,7 +39,7 @@ spring.cloud.azure.storage.blob.container-name=contoso
 spring.cloud.azure.storage.blob.connection-string=DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;
 ```
 
-In production, these properties should not be hardcoded in the `application.properties` file. Connection strings in production should be replaced with Microsoft Managed Identity when possible. For more information on Azure Storage support using Microsoft Entra ID, check out the link [here]( https://learn.microsoft.com/azure/storage/blobs/authorize-access-azure-active-directory).
+:warning: In production, these properties should not be hardcoded in the `application.properties` file. Connection strings in production should be replaced with Microsoft Managed Identity when possible. For more information on Azure Storage support using Microsoft Entra ID, check out the link [here]( https://learn.microsoft.com/azure/storage/blobs/authorize-access-azure-active-directory).
 
 ### gRPC Service
 
