@@ -187,7 +187,7 @@ public void listFiles(ListFilesRequest request, StreamObserver<ListFilesResponse
 - [Docker](https://www.docker.com/)
 - [grpcurl](https://github.com/fullstorydev/grpcurl)
 
-There is a [Dev Container](https://code.visualstudio.com/docs/remote/containers) that can be used to build and run the project in a container. This is useful if you don't have the prerequisites installed on your machine. You can open the project in Visual Studio Code and select the "Reopen in Container" option. Or you can use [CodeSpaces](https://github.com/features/codespaces) to build the project in the cloud.
+There is a [Dev Container](https://code.visualstudio.com/docs/remote/containers) that can be used to build and run the project. This is useful if you don't have the prerequisites installed on your machine. You can open the project in Visual Studio Code and select the "Reopen in Container" option. Or you can use [CodeSpaces](https://github.com/features/codespaces) to build the project in the cloud.
 
 ### Build
 
