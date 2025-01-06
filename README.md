@@ -112,9 +112,11 @@ docker ps
 
 You should see the following output:
 
-|CONTAINER ID | IMAGE | COMMAND | CREATED | STATUS |PORTS | NAMES |
-|-------------|-------|---------|---------|--------|------|-------|
-|7f6caeb1e3f4 | mcr.microsoft.com/azure-storage/azurite:latest | "docker-entrypoint.s…" | 6 hours ago | Up 5 seconds | 0.0.0.0:32768->10000/tcp, [::]:32768->10000/tcp, 0.0.0.0:32769->10001/tcp, [::]:32769->10001/tcp, 0.0.0.0:32770->10002/tcp, [::]:32770->10002/tcp |spring-boot-grpc-azure-storage-emulator-azurite-1 |
+```
+CONTAINER ID  IMAGE  COMMAND  CREATED  STATUS  PORTS  NAMES
+
+7f6caeb1e3f4  mcr.microsoft.com/azure-storage/azurite:latest  "docker-entrypoint.s…"  6 hours ago  Up 5 seconds  0.0.0.0:32768->10000/tcp, [::]:32768->10000/tcp, 0.0.0.0:32769->10001/tcp, [::]:32769->10001/tcp, 0.0.0.0:32770->10002/tcp, [::]:32770->10002/tcp spring-boot-grpc-azure-storage-emulator-azurite-1 
+```
 
 ### Test the gRPC Service
 
