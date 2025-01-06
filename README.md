@@ -1,10 +1,17 @@
 # Azure Storage Emulator example with Spring Boot and gRPC
 
-This is a simple example of how to use the [Azure Storage Emulator](https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azurite?tabs=visual-studio%2Cblob-storage) with [Spring Boot](https://docs.spring.io/spring-boot/index.html) and [gRPC](https://grpc.io/).
+This is a sample application consisting of a [Spring Boot]((https://docs.spring.io/spring-boot/index.html)) application that exposes a [gRPC](https://grpc.io/) service to interact with the [Azure Storage Emulator](https://learn.microsoft.com/azure/storage/common/storage-use-azurite?tabs=visual-studio%2Cblob-storage).
 
 ## Architecture
 
-The application uses the `Spring Cloud Azure Storage Starter`to interact with the Azure Storage Emulator. The Azure Storage Emulator is a local emulator that provides a local development environment for Azure Storage. In this sample, we use the Blob Storage service exposed by the docker compose file `compose.yaml`.
+The application has the following components:
+
+- **Azure Storage Emulator**: A local emulator that provides a local development environment for Azure Storage.
+- **gRPC Service**: A gRPC service that exposes methods to upload, download, and list files in the Azure Storage Emulator.
+
+### Azure Storage Emulator
+
+The Azure Storage Emulator is a local emulator that provides a local development environment for Azure Storage. The Azure Storage service is exposed by the docker compose file `compose.yaml`.
 
 ```yaml
 services:
@@ -16,7 +23,7 @@ services:
       - '10002'
 ```
 
-To interact with Azure Storage, add the following dependency to your `pom.xml` file:
+The application uses the `Spring Cloud Azure Storage Starter` to interact with the Azure Storage Emulator. The following dependency is added to the `pom.xml` file:
 
 ```xml
 <dependency>
@@ -25,14 +32,16 @@ To interact with Azure Storage, add the following dependency to your `pom.xml` f
 </dependency>
 ```
 
-Configure the application to use the Azure Storage Emulator by setting the following properties in the `application.properties` file:
+To use the Azure Storage Emulator, configure the application by setting the following properties in the `application.properties` file:
 
 ```yaml
 spring.cloud.azure.storage.blob.container-name=contoso
 spring.cloud.azure.storage.blob.connection-string=DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;
 ```
 
-In production, these properties should be set to the values of your Azure Storage account and not hardcoded in the `application.properties` file. Connection strings in production should be replaced with Microsoft Managed Identity when possible. For more information on Azure Storage support using Microsoft Entra ID, check out the link [here]( https://learn.microsoft.com/en-us/azure/storage/blobs/authorize-access-azure-active-directory).
+In production, these properties should not be hardcoded in the `application.properties` file. Connection strings in production should be replaced with Microsoft Managed Identity when possible. For more information on Azure Storage support using Microsoft Entra ID, check out the link [here]( https://learn.microsoft.com/azure/storage/blobs/authorize-access-azure-active-directory).
+
+### gRPC Service
 
 The application exposes a gRPC service with the following methods:
 
