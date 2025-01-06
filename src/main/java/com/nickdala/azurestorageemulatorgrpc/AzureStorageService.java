@@ -11,6 +11,7 @@ import org.springframework.grpc.server.service.GrpcService;
 import org.springframework.util.StreamUtils;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.util.List;
@@ -35,7 +36,7 @@ class AzureStorageEmulatorGrpcService extends StorageServiceGrpc.StorageServiceI
     @Override
     public void listFiles(ListFilesRequest request, StreamObserver<ListFilesResponse> responseObserver) {
         try {
-            Resource[] resources = azureStorageBlobProtocolResolver.getResources(String.format(BLOB_RESOURCE_PATTERN, this.containerName, "*.txt"));
+            Resource[] resources = azureStorageBlobProtocolResolver.getResources(String.format(BLOB_RESOURCE_PATTERN, this.containerName, "*"));
             List<String> fileNames = Stream.of(resources).map(Resource::getFilename).toList();
             ListFilesResponse response = ListFilesResponse.newBuilder()
                     .addAllFileNames(fileNames)
@@ -67,8 +68,8 @@ class AzureStorageEmulatorGrpcService extends StorageServiceGrpc.StorageServiceI
     @Override
     public void download(DownloadRequest request, StreamObserver<DownloadResponse> responseObserver) {
         Resource resource = resourceLoader.getResource(String.format(BLOB_RESOURCE_PATTERN, this.containerName, request.getFileName()));
-        try {
-            String fileContent = StreamUtils.copyToString(resource.getInputStream(), Charset.defaultCharset());
+        try (InputStream is = resource.getInputStream()) {
+            String fileContent = StreamUtils.copyToString(is, Charset.defaultCharset());
             DownloadResponse response = DownloadResponse.newBuilder()
                     .setFileContent(fileContent)
                     .build();
