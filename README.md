@@ -211,7 +211,7 @@ The following should be executed in a terminal after the application is running 
 
 ### Verify Azurite emulator for local Azure Storage development is running
 
-First verify that the Azurite container is running by running the following command:
+First verify that the Azurite container is running by executing the following command:
 
 ```
 docker ps
