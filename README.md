@@ -1,6 +1,6 @@
 # Azure Storage Emulator example with Spring Boot and gRPC
 
-This is a sample consisting of a [Spring Boot](https://docs.spring.io/spring-boot/index.html)) application that exposes a [gRPC](https://grpc.io/) service to interact with the [Azure Storage Emulator](https://learn.microsoft.com/azure/storage/common/storage-use-azurite?tabs=visual-studio%2Cblob-storage).
+This is a sample consisting of a [Spring Boot](https://docs.spring.io/spring-boot/index.html) application that exposes a [gRPC](https://grpc.io/) service to interact with the [Azure Storage Emulator](https://learn.microsoft.com/azure/storage/common/storage-use-azurite?tabs=visual-studio%2Cblob-storage).
 
 ## Architecture
 
