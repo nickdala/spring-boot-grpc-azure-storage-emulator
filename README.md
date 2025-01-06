@@ -115,7 +115,7 @@ Run the application:
 
 The following should be executed in a terminal after the application is running using `./mvnw spring-boot:run`. The application will be running and the gRPC service is exposed on port 9090.
 
-### Verify Azurite is running
+### Verify Azurite emulator for local Azure Storage development is running
 
 First verify that the Azurite container is running by running the following command:
 
