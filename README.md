@@ -32,7 +32,7 @@ spring.cloud.azure.storage.blob.container-name=contoso
 spring.cloud.azure.storage.blob.connection-string=DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;
 ```
 
-In production, these properties should be set to the values of your Azure Storage account and not hardcoded in the `application.properties` file.
+In production, these properties should be set to the values of your Azure Storage account and not hardcoded in the `application.properties` file. Connection strings in production should be replaced with Microsoft Managed Identity when possible. For more information on Azure Storage support using Microsoft Entra ID, check out the link [here]( https://learn.microsoft.com/en-us/azure/storage/blobs/authorize-access-azure-active-directory).
 
 The application exposes a gRPC service with the following methods:
 
@@ -76,21 +76,25 @@ service StorageService {
 }
 ```
 
-## Prerequisites
+## Build and Run the Application
+
+### Prerequisites
 
 - [Java 21](https://www.oracle.com/java/technologies/downloads/#java21)
 - [Docker](https://www.docker.com/)
 - [grpcurl](https://github.com/fullstorydev/grpcurl)
 
-There is a devcontainer configuration in this repository. You can use it to run the application in a container or in code spaces.
+There is a [DevContainer](https://code.visualstudio.com/docs/remote/containers) that can be used to build and run the project in a container. This is useful if you don't have the prerequisites installed on your machine. You can open the project in Visual Studio Code and select the "Reopen in Container" option. Or you can use [CodeSpaces](https://github.com/features/codespaces) to build the project in the cloud.
 
-## Build and Run the Application
+### Build
 
 Build the project with Maven:
 
 ```
 ./mvnw clean package
 ```
+
+### Run the Application
 
 Run the application:
 
@@ -100,7 +104,7 @@ Run the application:
 
 ## Testing the gRPC Service
 
-The following should be execured in a terminal after the application is running using `./mvnw spring-boot:run`. The application will be running and the gRPC service is exposed on port 9090.
+The following should be executed in a terminal after the application is running using `./mvnw spring-boot:run`. The application will be running and the gRPC service is exposed on port 9090.
 
 ### Verify Azurite is running
 
