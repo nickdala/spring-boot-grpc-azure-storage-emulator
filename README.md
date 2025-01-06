@@ -207,7 +207,7 @@ Run the application:
 
 ## Testing the gRPC Service
 
-The following should be executed in a terminal after the application is running using `./mvnw spring-boot:run`. The application will be running and the gRPC service is exposed on port 9090.
+The following should be executed in a terminal after the application is running using `./mvnw spring-boot:run`. The gRPC service is exposed on port 9090.
 
 ### Verify Azurite emulator for local Azure Storage development is running
 
