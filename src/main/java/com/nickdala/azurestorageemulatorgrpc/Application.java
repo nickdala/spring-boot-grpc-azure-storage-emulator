@@ -1,4 +1,4 @@
-package com.nickdala.azure_storage_emulator_grpc;
+package com.nickdala.azurestorageemulatorgrpc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
