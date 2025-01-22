@@ -275,6 +275,11 @@ Response:
 }
 ```
 
+## Additional Resources
+
+- [Azure Storage Emulator](https://learn.microsoft.com/azure/storage/common/storage-use-azurite?tabs=visual-studio%2Cblob-storage)
+- [Grant limited access to Azure Storage resources using shared access signatures (SAS)](https://learn.microsoft.com/en-us/azure/storage/common/storage-sas-overview)
+
 ## Demo
 
 ![Demo](./images/demo.gif)
