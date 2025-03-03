@@ -31,7 +31,7 @@
 		<grpc.version>1.63.2</grpc.version>
 		<protobuf-java.version>3.25.5</protobuf-java.version>
 		<spring-cloud-azure.version>5.19.0</spring-cloud-azure.version>
-		<spring-grpc.version>0.3.0</spring-grpc.version>
+		<spring-grpc.version>0.4.0</spring-grpc.version>
 	</properties>
 	<dependencies>
 		<dependency>
